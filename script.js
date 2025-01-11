@@ -114,3 +114,121 @@ document.addEventListener('DOMContentLoaded', () => {
     // Animate connections
     gsap.ticker.add(drawConnections);
   });
+
+
+
+  // Companies Sections ------------------------------------------
+
+  
+document.addEventListener("DOMContentLoaded", function () {
+    // existing javascript code
+    const featureCards = document.querySelectorAll(".feature-card");
+  
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+  
+    featureCards.forEach((card) => {
+      observer.observe(card);
+    });
+  
+    featureCards.forEach((card) => {
+      const speed = parseFloat(card.dataset.parallaxSpeed);
+      gsap.to(card, {
+        z: -50 * speed,
+        scrollTrigger: {
+          trigger: card,
+          scrub: true,
+          start: "top bottom",
+          end: "bottom top",
+        },
+      });
+    });
+  
+      // Smooth scroll links
+     const navLinks = document.querySelectorAll('nav a[href^="#"], .overlay-menu a[href^="#"]');
+  
+      navLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              const targetId = this.getAttribute('href');
+              gsap.to(window, {
+                  duration: 1,
+                  scrollTo: targetId,
+                  ease: "power3.inOut"
+              })
+          })
+      })
+  
+      //toggle menu
+  
+      const menuToggle = document.querySelector('.menu-toggle');
+      const overlayMenu = document.querySelector('.overlay-menu');
+  
+      menuToggle.addEventListener('click', () => {
+      overlayMenu.classList.toggle('active');
+      });
+  
+      // Companies Ticker Animation 
+      
+        const tickerScroll = document.querySelector('.ticker-scroll');
+        const scrollWidth = tickerScroll.scrollWidth;
+      
+         gsap.to(tickerScroll, {
+            x: () => -(scrollWidth / 2), // Moves the element to the left to make the second half appear.
+            duration: 20, 
+            ease: 'none',
+            repeat: -1,
+        });
+  });
+  
+
+
+// Feature Sections -------------------------------------------------------------
+  document.addEventListener("DOMContentLoaded", function () {
+    const featureCards = document.querySelectorAll(".feature-card");
+  
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+  
+    featureCards.forEach((card) => {
+      observer.observe(card);
+    });
+  
+    featureCards.forEach((card) => {
+      const speed = parseFloat(card.dataset.parallaxSpeed);
+      gsap.to(card, {
+        z: -50 * speed,
+        scrollTrigger: {
+          trigger: card,
+          scrub: true,
+          start: "top bottom",
+          end: "bottom top",
+        },
+      });
+    });
+  });
+  
+
+  // Feature Section Redirect
+
+  

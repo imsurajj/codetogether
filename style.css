@@ -350,3 +350,156 @@ color: var(--text-color);
   }
 }
 
+/* Companies Ticker Section */
+
+.ticker-section {
+  position: relative;
+  width: 100%;
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ticker-title {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  color: var(--primary-color);
+  transform: translateX(-50%);
+}
+
+.ticker-container {
+  width: 90%;
+  max-width: 1400px;
+  overflow: hidden;
+}
+
+.ticker-scroll {
+  display: flex;
+  white-space: nowrap;
+}
+
+.company-item {
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-right: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Shadow Styles */
+.ticker-shadow-left,
+.ticker-shadow-right {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ticker-shadow-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
+
+.ticker-shadow-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
+
+.ticker-container:hover .ticker-scroll {
+  animation-play-state: paused;
+}
+
+
+
+/* Feature Card */
+.features-section {
+  width: 100%;
+  background-color: #000;
+  padding: 4rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Updated minmax for responsiveness */
+    gap: 2rem;
+    position: relative;
+}
+
+.feature-card {
+    background-color: #000;
+    border: 1px solid #333;
+    padding: 2rem; /* Increased padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    position: relative;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    border-radius: 15px;
+}
+
+.feature-card.active {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 1px solid transparent;
+    transition: border-color 0.4s ease;
+    border-radius: 15px;
+}
+
+.feature-card:hover::before {
+    border-color: var(--primary-color);
+}
+
+.feature-card:hover {
+    background: linear-gradient(145deg, #000 0%, rgba(122,86,252,0.2) 100%);
+  border-color: var(--primary-color);
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.feature-icon {
+  width: 4rem; /* Increased icon size */
+  height: 4rem; /* Increased icon size */
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+.feature-title {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Increased font size */
+}
+
+.feature-description {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+    font-size: 1rem; /* Increased font size */
+}
