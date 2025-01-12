@@ -193,42 +193,125 @@ document.addEventListener("DOMContentLoaded", function () {
   
 
 
-// Feature Sections -------------------------------------------------------------
-  document.addEventListener("DOMContentLoaded", function () {
-    const featureCards = document.querySelectorAll(".feature-card");
+// Add this to your existing JavaScript
+
+// Scroll reveal animation
+function setupScrollReveal() {
+  const cards = document.querySelectorAll('.feature-card');
   
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+  // Add fade-up class to all cards
+  cards.forEach(card => card.classList.add('fade-up'));
+
+  const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("active");
+              entry.target.classList.add('active');
+              // Add stagger effect
+              const index = Array.from(cards).indexOf(entry.target);
+              entry.target.style.transitionDelay = `${index * 0.1}s`;
           }
-        });
-      },
-      {
-        threshold: 0.2,
-      }
-    );
-  
-    featureCards.forEach((card) => {
-      observer.observe(card);
-    });
-  
-    featureCards.forEach((card) => {
-      const speed = parseFloat(card.dataset.parallaxSpeed);
-      gsap.to(card, {
-        z: -50 * speed,
-        scrollTrigger: {
-          trigger: card,
-          scrub: true,
-          start: "top bottom",
-          end: "bottom top",
-        },
       });
-    });
+  }, {
+      threshold: 0.1
   });
+
+  cards.forEach(card => observer.observe(card));
+}
+
+// Update your DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', () => {
+  // ... your existing code ...
+  
+  setupScrollReveal();
+});
   
 
-  // Feature Section Redirect
-
+  // PRICING SECTION JS
   
+  document.addEventListener('DOMContentLoaded', () => {
+    // Previous JavaScript code remains unchanged
+
+    // GSAP Animations for Pricing Section
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Heading and Subheading Animation
+    gsap.from('.pricing-header .section-tag', {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        scrollTrigger: {
+            trigger: '.pricing',
+            start: 'top 80%',
+        }
+    });
+
+    gsap.from('.pricing-header h2', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: 0.2,
+        scrollTrigger: {
+            trigger: '.pricing',
+            start: 'top 80%',
+        }
+    });
+
+    gsap.from('.pricing-header p', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: 0.4,
+        scrollTrigger: {
+            trigger: '.pricing',
+            start: 'top 80%',
+        }
+    });
+
+    // Pricing Cards Animation
+    gsap.from('.pricing-card', {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        stagger: 0.2,
+        scrollTrigger: {
+            trigger: '.pricing-grid',
+            start: 'top 80%',
+        }
+    });
+
+    // Hover animations for pricing cards
+    const pricingCards = document.querySelectorAll('.pricing-card');
+    pricingCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            if (!card.classList.contains('popular')) {
+                gsap.to(card, {
+                    y: -10,
+                    boxShadow: '0 20px 30px rgba(108, 58, 255, 0.1)',
+                    duration: 0.3
+                });
+            }
+        });
+
+        card.addEventListener('mouseleave', () => {
+            if (!card.classList.contains('popular')) {
+                gsap.to(card, {
+                    y: 0,
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                    duration: 0.3
+                });
+            }
+        });
+    });
+
+    // Continuous subtle animation for the popular card
+    const popularCard = document.querySelector('.pricing-card.popular');
+    if (popularCard) {
+        gsap.to(popularCard, {
+            y: -5,
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut"
+        });
+    }
+});
