@@ -1,11 +1,77 @@
+// LOADER ANIMATION 
+document.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById("loader");
+    const progressBar = document.querySelector(".progress-bar");
+    const loadingText = document.getElementById("loadingText");
+    const content = document.getElementById("content");
+
+    let loadedItems = 0;
+    const totalItems = document.images.length + 1; // Count images + 1 for other content
+    const minimumDelay = 2000; // Minimum loader display time in milliseconds
+    const startTime = Date.now();
+
+    // Helper function to update loader progress
+    function updateProgress() {
+        const progress = Math.min((loadedItems / totalItems) * 100, 100);
+        progressBar.style.width = `${progress}%`;
+
+        // Word animation based on progress
+        if (progress < 25) {
+            loadingText.textContent = "Loading";
+        } else if (progress < 50) {
+            loadingText.textContent = "Please Wait";
+        } else if (progress < 75) {
+            loadingText.textContent = "Almost There";
+        } else {
+            loadingText.textContent = "Getting Ready";
+        }
+
+        // When loading is complete
+        if (progress >= 100) {
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(minimumDelay - elapsedTime, 0);
+
+            setTimeout(() => {
+                loader.classList.add("hidden");
+                setTimeout(() => {
+                    loader.style.display = "none";
+                    content.style.display = "block"; // Show content
+                }, 1000); // Smooth swipe-up delay
+            }, remainingTime);
+        }
+    }
+
+    // Track resource loading
+    const trackLoading = () => {
+        loadedItems++;
+        updateProgress();
+    };
+
+    // Attach event listeners for all images
+    Array.from(document.images).forEach((img) => {
+        if (img.complete) {
+            trackLoading(); // Already loaded
+        } else {
+            img.addEventListener("load", trackLoading);
+            img.addEventListener("error", trackLoading); // In case of errors
+        }
+    });
+
+    // Simulate other resource loading
+    setTimeout(trackLoading, 100); // Example delay for non-image resources
+});
+
+// LOADER JS ENDED HERE
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector('.menu-toggle');
     const overlayMenu = document.querySelector('.overlay-menu');
     const menuLinks = document.querySelectorAll('.menu-links li');
-    
+
     // Initialize GSAP timeline for menu animation
     const menuTl = gsap.timeline({ paused: true });
-    
+
     menuTl
         .to(overlayMenu, {
             duration: 0.5,
@@ -20,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stagger: 0.1,
             ease: 'power2.out'
         });
-  
+
     // Toggle menu
     menuToggle.addEventListener('click', () => {
         menuToggle.classList.toggle('active');
@@ -30,10 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
             menuTl.reverse();
         }
     });
-  
+
     // Hero section animations
     const heroTl = gsap.timeline();
-  
+
     heroTl
         .from('.hero-title', {
             duration: 1,
@@ -60,12 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
             stagger: 0.2,
             ease: 'back.out(1.7)'
         }, '-=0.5');
-  
+
     // Animate connection lines
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const heroImage = document.querySelector('.hero-image');
-    
+
     canvas.style.position = 'absolute';
     canvas.style.top = '0';
     canvas.style.left = '0';
@@ -73,35 +139,35 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.style.height = '100%';
     canvas.style.pointerEvents = 'none';
     heroImage.appendChild(canvas);
-  
+
     function resizeCanvas() {
         canvas.width = heroImage.offsetWidth;
         canvas.height = heroImage.offsetHeight;
     }
-  
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-  
+
     function drawConnections() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const points = document.querySelectorAll('.point');
-        
+
         ctx.strokeStyle = '#00ff9d';
         ctx.lineWidth = 2;
-  
+
         points.forEach((point, i) => {
             const rect = point.getBoundingClientRect();
             const heroRect = heroImage.getBoundingClientRect();
-            
-            const x1 = rect.left + rect.width/2 - heroRect.left;
-            const y1 = rect.top + rect.height/2 - heroRect.top;
-  
+
+            const x1 = rect.left + rect.width / 2 - heroRect.left;
+            const y1 = rect.top + rect.height / 2 - heroRect.top;
+
             points.forEach((point2, j) => {
                 if (i !== j) {
                     const rect2 = point2.getBoundingClientRect();
-                    const x2 = rect2.left + rect2.width/2 - heroRect.left;
-                    const y2 = rect2.top + rect2.height/2 - heroRect.top;
-  
+                    const x2 = rect2.left + rect2.width / 2 - heroRect.left;
+                    const y2 = rect2.top + rect2.height / 2 - heroRect.top;
+
                     ctx.beginPath();
                     ctx.moveTo(x1, y1);
                     ctx.lineTo(x2, y2);
@@ -110,125 +176,125 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-  
+
     // Animate connections
     gsap.ticker.add(drawConnections);
-  });
+});
 
 
 
-  // Companies Sections ------------------------------------------
+// Companies Sections ------------------------------------------
 
-  
+
 document.addEventListener("DOMContentLoaded", function () {
     // existing javascript code
     const featureCards = document.querySelectorAll(".feature-card");
-  
+
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-      }
-    );
-  
-    featureCards.forEach((card) => {
-      observer.observe(card);
-    });
-  
-    featureCards.forEach((card) => {
-      const speed = parseFloat(card.dataset.parallaxSpeed);
-      gsap.to(card, {
-        z: -50 * speed,
-        scrollTrigger: {
-          trigger: card,
-          scrub: true,
-          start: "top bottom",
-          end: "bottom top",
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("active");
+                }
+            });
         },
-      });
+        {
+            threshold: 0.2,
+        }
+    );
+
+    featureCards.forEach((card) => {
+        observer.observe(card);
     });
-  
-      // Smooth scroll links
-     const navLinks = document.querySelectorAll('nav a[href^="#"], .overlay-menu a[href^="#"]');
-  
-      navLinks.forEach(link => {
-          link.addEventListener('click', function(e){
-              e.preventDefault();
-              const targetId = this.getAttribute('href');
-              gsap.to(window, {
-                  duration: 1,
-                  scrollTo: targetId,
-                  ease: "power3.inOut"
-              })
-          })
-      })
-  
-      //toggle menu
-  
-      const menuToggle = document.querySelector('.menu-toggle');
-      const overlayMenu = document.querySelector('.overlay-menu');
-  
-      menuToggle.addEventListener('click', () => {
-      overlayMenu.classList.toggle('active');
-      });
-  
-      // Companies Ticker Animation 
-      
-        const tickerScroll = document.querySelector('.ticker-scroll');
-        const scrollWidth = tickerScroll.scrollWidth;
-      
-         gsap.to(tickerScroll, {
-            x: () => -(scrollWidth / 2), // Moves the element to the left to make the second half appear.
-            duration: 20, 
-            ease: 'none',
-            repeat: -1,
+
+    featureCards.forEach((card) => {
+        const speed = parseFloat(card.dataset.parallaxSpeed);
+        gsap.to(card, {
+            z: -50 * speed,
+            scrollTrigger: {
+                trigger: card,
+                scrub: true,
+                start: "top bottom",
+                end: "bottom top",
+            },
         });
-  });
-  
+    });
+
+    // Smooth scroll links
+    const navLinks = document.querySelectorAll('nav a[href^="#"], .overlay-menu a[href^="#"]');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            gsap.to(window, {
+                duration: 1,
+                scrollTo: targetId,
+                ease: "power3.inOut"
+            })
+        })
+    })
+
+    //toggle menu
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const overlayMenu = document.querySelector('.overlay-menu');
+
+    menuToggle.addEventListener('click', () => {
+        overlayMenu.classList.toggle('active');
+    });
+
+    // Companies Ticker Animation 
+
+    const tickerScroll = document.querySelector('.ticker-scroll');
+    const scrollWidth = tickerScroll.scrollWidth;
+
+    gsap.to(tickerScroll, {
+        x: () => -(scrollWidth / 2), // Moves the element to the left to make the second half appear.
+        duration: 20,
+        ease: 'none',
+        repeat: -1,
+    });
+});
+
 
 
 // Add this to your existing JavaScript
 
 // Scroll reveal animation
 function setupScrollReveal() {
-  const cards = document.querySelectorAll('.feature-card');
-  
-  // Add fade-up class to all cards
-  cards.forEach(card => card.classList.add('fade-up'));
+    const cards = document.querySelectorAll('.feature-card');
 
-  const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-          if (entry.isIntersecting) {
-              entry.target.classList.add('active');
-              // Add stagger effect
-              const index = Array.from(cards).indexOf(entry.target);
-              entry.target.style.transitionDelay = `${index * 0.1}s`;
-          }
-      });
-  }, {
-      threshold: 0.1
-  });
+    // Add fade-up class to all cards
+    cards.forEach(card => card.classList.add('fade-up'));
 
-  cards.forEach(card => observer.observe(card));
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Add stagger effect
+                const index = Array.from(cards).indexOf(entry.target);
+                entry.target.style.transitionDelay = `${index * 0.1}s`;
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    cards.forEach(card => observer.observe(card));
 }
 
 // Update your DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', () => {
-  // ... your existing code ...
-  
-  setupScrollReveal();
-});
-  
+    // ... your existing code ...
 
-  // PRICING SECTION JS
-  
-  document.addEventListener('DOMContentLoaded', () => {
+    setupScrollReveal();
+});
+
+
+// PRICING SECTION JS
+
+document.addEventListener('DOMContentLoaded', () => {
     // Previous JavaScript code remains unchanged
 
     // GSAP Animations for Pricing Section
