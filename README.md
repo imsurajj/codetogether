@@ -51,7 +51,7 @@ git checkout -b your-branch-name
 git commit -m "Add: Brief description of changes"
 ```
 
-3> Push your branch to the repository or submit a pull request:
+3. Push your branch to the repository or submit a pull request:
 
 ```
 git push origin your-branch-name
