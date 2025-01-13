@@ -17,7 +17,7 @@ This repository is designed to help you make contributions and boost your GitHub
 
 ### ✅ Option 2: Clone the Repository
 
-1 Run the following command in your terminal to clone the repository:
+1. Run the following command in your terminal to clone the repository:
 
 ```
 git clone https://GitHub.com/codetogether.txt
