@@ -6,6 +6,10 @@ This repository is designed to help you make contributions and boost your GitHub
 
 --- 
 
+
+> [!NOTE]
+> Read and Follow Instructions Carefully 
+
 ## How to Use This Repository ?
 
 ✅ Option 1: Fork the Repository
@@ -57,7 +61,7 @@ git commit -m "Add: Brief description of changes"
 git push origin your-branch-name
 ```
 
---- 
+
 ### Why Contribute?
 
 - 📈 Enhance your GitHub activity chart.
