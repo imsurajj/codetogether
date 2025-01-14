@@ -944,3 +944,160 @@ color: var(--text-color);
       font-size: 0.75rem;
   }
 }
+
+
+
+
+
+/* Footer Styles */
+.footer {
+  background-color: bl;
+  color: #FFFFFF;
+  padding: 80px 0 40px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.footer-section h3 {
+  color: #8257FF;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.footer-section h4 {
+  color: #8257FF;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.footer-section p {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.footer-section ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 12px;
+}
+
+.footer-section ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #8257FF;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icons a {
+  color: #ffffff;
+  font-size: 20px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #8257FF;
+  transform: translateY(-3px);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+      padding: 60px 0 30px;
+  }
+
+  .footer-grid {
+      gap: 30px 40px;
+  }
+
+  .footer-section h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+  }
+
+  .footer-section h4 {
+      font-size: 18px;
+      margin-bottom: 16px;
+  }
+
+  .footer-section p,
+  .footer-section ul li a {
+      font-size: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+      padding: 40px 0 20px;
+  }
+
+  .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+  }
+
+  .container {
+      padding: 0 16px;
+  }
+
+  .footer-section h3 {
+      font-size: 20px;
+      margin-bottom: 16px;
+  }
+
+  .footer-section h4 {
+      font-size: 16px;
+      margin-bottom: 12px;
+  }
+
+  .footer-section p,
+  .footer-section ul li a {
+      font-size: 14px;
+  }
+
+  .footer-section ul li {
+      margin-bottom: 8px;
+  }
+
+  .social-icons {
+      gap: 16px;
+  }
+
+  .social-icons a {
+      font-size: 18px;
+  }
+}
+
